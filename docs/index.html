@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SENTINEL-KE Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root { --critical:#d32f2f; --elevated:#f9a825; --normal:#2e7d32; --bg:#0f1419; --card:#1a2129; --border:#2a333d; }
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: #e8eaed; margin:0; padding:24px; }
+  h1 { font-size: 22px; margin-bottom: 4px; }
+  h2 { font-size: 16px; margin: 0 0 12px 0; }
+  .sub { color: #9aa5b1; margin-bottom: 20px; }
+  .controls { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; align-items:flex-end; }
+  .control { display:flex; flex-direction:column; gap:4px; }
+  .control label { font-size:12px; color:#9aa5b1; text-transform:uppercase; letter-spacing:.04em; }
+  select { background: var(--card); color:#e8eaed; border:1px solid var(--border); border-radius:6px; padding:8px 12px; font-size:14px; min-width:160px; }
+
+  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap:16px; margin-bottom:28px; }
+  .card { background: var(--card); border-radius: 10px; padding:16px; cursor:pointer; border:1px solid var(--border); transition: transform .15s; }
+  .card:hover { transform: translateY(-2px); }
+  .card.selected { outline: 2px solid #4dabf7; }
+  .county { font-weight:600; font-size:16px; }
+  .score { font-size: 32px; font-weight:700; margin: 6px 0; }
+  .badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:12px; font-weight:600; text-transform:uppercase; }
+  .critical { background: var(--critical); }
+  .elevated { background: var(--elevated); color:#222; }
+  .normal { background: var(--normal); }
+  .meta { margin-top:8px; font-size:12px; color:#9aa5b1; }
+
+  .section { background:var(--card); border-radius:10px; padding:20px; margin-bottom:24px; border:1px solid var(--border); }
+  #explanation-text { line-height:1.6; color:#d6dbe1; }
+  canvas { max-height: 260px; }
+
+  table { width:100%; border-collapse: collapse; font-size:14px; }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); }
+  th { color:#9aa5b1; font-weight:600; font-size:12px; text-transform:uppercase; }
+  td.score-cell { font-weight:600; }
+
+  footer { margin-top:36px; padding-top:20px; border-top:1px solid var(--border); color:#9aa5b1; font-size:13px; line-height:1.7; }
+  footer h3 { color:#c2c9d1; font-size:14px; margin-bottom:6px; }
+  footer .footer-grid { display:grid; grid-template-columns: 1fr 1fr; gap:24px; }
+  footer ul { margin:4px 0; padding-left:18px; }
+  .updated { color:#6b7785; font-size:12px; margin-bottom:16px; }
+  @media (max-width:700px) { footer .footer-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+  <h1>🛡️ SENTINEL-KE</h1>
+  <div class="sub">AI-powered disease outbreak early warning — Nyanza region, updated daily 06:00 EAT</div>
+  <div class="updated" id="updated"></div>
+
+  <div class="controls">
+    <div class="control">
+      <label for="disease-select">Disease</label>
+      <select id="disease-select" onchange="onDiseaseChange()"></select>
+    </div>
+    <div class="control">
+      <label for="county-select">County (for trend & explanation)</label>
+      <select id="county-select" onchange="onCountyChange()"></select>
+    </div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="section">
+    <h2 id="explanation-title">AI explanation</h2>
+    <p id="explanation-text">Select a county above to see the explanation.</p>
+  </div>
+
+  <div class="section">
+    <h2 id="detail-title">Risk score trend</h2>
+    <canvas id="historyChart"></canvas>
+  </div>
+
+  <div class="section">
+    <h2>County comparison</h2>
+    <table id="comparison-table">
+      <thead>
+        <tr><th>County</th><th>Risk score</th><th>Alert level</th><th>Reported cases</th><th>Top driver</th></tr>
+      </thead>
+      <tbody id="comparison-body"></tbody>
+    </table>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h3>Data sources</h3>
+        <ul>
+          <li><strong>Rainfall & temperature</strong> — Open-Meteo (live)</li>
+          <li><strong>Vegetation/NDVI</strong> — NASA POWER/MODIS (placeholder until an Earthdata token is connected)</li>
+          <li><strong>WASH, mobility, health capacity</strong> — placeholder values pending DHIS2/county data integration</li>
+          <li><strong>Reported case counts</strong> — synthetic, illustrative only, pending live surveillance feed</li>
+        </ul>
+      </div>
+      <div>
+        <h3>How this system works</h3>
+        <p>Every day, an automated job fetches environmental and health-system indicators
+        for each county, engineers a 25-feature profile across five domains (environmental,
+        WASH, mobility, health capacity, data quality), and runs it through disease-specific
+        XGBoost models trained to estimate outbreak risk. SHAP analysis identifies which
+        factors are driving each score, which the system turns into plain-language
+        explanations and recommended actions. Scores reflect modeled risk based on
+        conditions, not confirmed outbreaks.</p>
+      </div>
+    </div>
+  </footer>
+
+<script>
+let latestData = {};
+let historyData = [];
+let selectedDisease = null;
+let selectedCounty = null;
+let chart;
+
+async function loadDashboard() {
+  const [latestRes, historyRes] = await Promise.all([
+    fetch('data/latest.json?_=' + Date.now()),
+    fetch('data/history.json?_=' + Date.now()),
+  ]);
+  latestData = await latestRes.json();
+  historyData = await historyRes.json();
+
+  const counties = Object.keys(latestData);
+  if (counties.length === 0) {
+    document.getElementById('grid').innerHTML = '<p>No data yet — the pipeline hasn\'t run yet. Trigger it from the Actions tab.</p>';
+    return;
+  }
+
+  const diseases = Object.keys(latestData[counties[0]]);
+  populateSelect('disease-select', diseases, d => d.charAt(0).toUpperCase() + d.slice(1));
+  populateSelect('county-select', counties);
+
+  selectedDisease = diseases[0];
+  selectedCounty = counties[0];
+
+  const anyRecord = latestData[counties[0]][diseases[0]];
+  document.getElementById('updated').innerText = 'Last data date: ' + anyRecord.run_date;
+
+  renderGrid();
+  renderExplanation();
+  renderHistory();
+  renderComparison();
+}
+
+function populateSelect(id, values, labelFn) {
+  const el = document.getElementById(id);
+  el.innerHTML = '';
+  values.forEach(v => {
+    const opt = document.createElement('option');
+    opt.value = v;
+    opt.innerText = labelFn ? labelFn(v) : v;
+    el.appendChild(opt);
+  });
+}
+
+function onDiseaseChange() {
+  selectedDisease = document.getElementById('disease-select').value;
+  renderGrid();
+  renderExplanation();
+  renderHistory();
+  renderComparison();
+}
+
+function onCountyChange() {
+  selectedCounty = document.getElementById('county-select').value;
+  renderExplanation();
+  renderHistory();
+  highlightSelectedCard();
+}
+
+function renderGrid() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  const counties = Object.keys(latestData);
+  const records = counties.map(c => latestData[c][selectedDisease]);
+  records.sort((a,b) => b.risk_score - a.risk_score);
+
+  records.forEach(d => {
+    const card = document.createElement('div');
+    card.className = 'card' + (d.county === selectedCounty ? ' selected' : '');
+    card.dataset.county = d.county;
+    card.onclick = () => {
+      document.getElementById('county-select').value = d.county;
+      onCountyChange();
+    };
+    card.innerHTML = `
+      <div class="county">${d.county}</div>
+      <div class="score">${d.risk_score}%</div>
+      <span class="badge ${d.alert_level}">${d.alert_level}</span>
+      <div class="meta">Reported cases: ${d.reported_cases ?? '—'}</div>
+      <div class="meta">Top drivers: ${(d.top_drivers || []).slice(0,3).join(', ')}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function highlightSelectedCard() {
+  document.querySelectorAll('.card').forEach(c => {
+    c.classList.toggle('selected', c.dataset.county === selectedCounty);
+  });
+}
+
+function renderExplanation() {
+  const record = latestData[selectedCounty][selectedDisease];
+  document.getElementById('explanation-title').innerText =
+    `AI explanation — ${selectedCounty}, ${selectedDisease}`;
+  document.getElementById('explanation-text').innerText = record.explanation || 'No explanation available.';
+}
+
+function renderHistory() {
+  const rows = historyData
+    .filter(r => r.county === selectedCounty && r.disease === selectedDisease)
+    .slice(-60);
+
+  document.getElementById('detail-title').innerText = `${selectedCounty} — ${selectedDisease} risk score trend`;
+  const ctx = document.getElementById('historyChart').getContext('2d');
+  if (chart) chart.destroy();
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: rows.map(r => r.run_date),
+      datasets: [{
+        label: 'Risk score (%)',
+        data: rows.map(r => r.risk_score),
+        borderColor: '#4dabf7',
+        tension: 0.3,
+      }]
+    },
+    options: { scales: { y: { min:0, max:100 } } }
+  });
+}
+
+function renderComparison() {
+  const counties = Object.keys(latestData);
+  const tbody = document.getElementById('comparison-body');
+  tbody.innerHTML = '';
+  counties
+    .map(c => latestData[c][selectedDisease])
+    .sort((a,b) => b.risk_score - a.risk_score)
+    .forEach(d => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${d.county}</td>
+        <td class="score-cell">${d.risk_score}%</td>
+        <td><span class="badge ${d.alert_level}">${d.alert_level}</span></td>
+        <td>${d.reported_cases ?? '—'}</td>
+        <td>${(d.top_drivers || [])[0] || '—'}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+}
+
+loadDashboard();
+</script>
+</body>
+</html>

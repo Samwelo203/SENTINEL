@@ -1,0 +1,46 @@
+name: SENTINEL-KE Daily Pipeline
+
+on:
+  schedule:
+    - cron: "0 3 * * *"   # 03:00 UTC = 06:00 EAT, every day
+  workflow_dispatch:        # lets you trigger it manually from the Actions tab
+
+permissions:
+  contents: write            # needed so the workflow can commit data files back
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r pipeline/requirements.txt
+
+      - name: Train models if missing
+        run: |
+          if [ ! -f model/model_malaria.json ] || [ ! -f model/model_cholera.json ]; then
+            echo "One or more models missing, training..."
+            python model/train.py
+            ls -la model/model_malaria.json model/model_cholera.json
+          else
+            echo "Models already exist, skipping training."
+          fi
+
+      - name: Run daily pipeline
+        run: |
+          cd pipeline && python main.py
+
+      - name: Commit updated data
+        run: |
+          git config user.name "sentinel-ke-bot"
+          git config user.email "actions@github.com"
+          git add docs/data/latest.json docs/data/history.json model/model_malaria.json model/model_cholera.json
+          git diff --staged --quiet || git commit -m "Daily risk update: $(date -u +%Y-%m-%d)"
+          git push

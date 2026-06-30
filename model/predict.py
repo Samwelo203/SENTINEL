@@ -101,6 +101,9 @@ def estimate_reported_cases(disease: str, risk_score: float, seed_key: str) -> d
     noise = (h % 20) - 10
     cases = max(0, round(base * (risk_score / 50) + noise))
     return {"reported_cases": cases, "cases_source": "placeholder_synthetic"}
+
+
+def recommend_actions(alert_level: str, top_drivers: list[str]) -> list[str]:
     actions = []
     if alert_level == "critical":
         actions.append("Preposition oral rehydration salts, IV fluids, cholera kits, and malaria drugs now.")

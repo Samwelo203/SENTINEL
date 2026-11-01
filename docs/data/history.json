@@ -45751,5 +45751,377 @@
     "explanation": "Nyamira is at normal/routine risk for cholera (19.6%), driven mainly by recent rainfall totals, rainfall running above normal for the area, and average temperatures. This estimate reflects current environmental and health-system conditions, not a confirmed outbreak.",
     "reported_cases": 0,
     "cases_source": "placeholder_synthetic"
+  },
+  {
+    "run_date": "2026-11-01",
+    "county": "Kisumu",
+    "disease": "malaria",
+    "risk_score": 34.5,
+    "alert_level": "normal",
+    "rainfall_mm": 62.5,
+    "temperature_c": 24.07333333333333,
+    "ndvi": 0.5,
+    "wash_score": 0.6,
+    "mobility_score": 0.4,
+    "health_capacity_score": 0.5,
+    "data_quality_score": 0.7,
+    "top_drivers": [
+      "rainfall_mm_total_14d",
+      "rainfall_anomaly",
+      "temperature_c_mean",
+      "data_quality_score",
+      "health_capacity_score"
+    ],
+    "recommended_actions": [
+      "Continue routine monitoring; no additional action required.",
+      "Inspect drainage and water sources for contamination risk after heavy rainfall.",
+      "Investigate unusual rainfall pattern versus county baseline.",
+      "Follow up with reporting facilities \u2014 confidence in this score is reduced by data gaps.",
+      "Assess bed and staffing capacity; request reinforcement if strained."
+    ],
+    "explanation": "Kisumu is at normal/routine risk for malaria (34.5%), driven mainly by recent rainfall totals, rainfall running above normal for the area, and average temperatures. This estimate reflects current environmental and health-system conditions, not a confirmed outbreak.",
+    "reported_cases": 35,
+    "cases_source": "placeholder_synthetic"
+  },
+  {
+    "run_date": "2026-11-01",
+    "county": "Kisumu",
+    "disease": "cholera",
+    "risk_score": 17.8,
+    "alert_level": "normal",
+    "rainfall_mm": 62.5,
+    "temperature_c": 24.07333333333333,
+    "ndvi": 0.5,
+    "wash_score": 0.6,
+    "mobility_score": 0.4,
+    "health_capacity_score": 0.5,
+    "data_quality_score": 0.7,
+    "top_drivers": [
+      "rainfall_mm_total_14d",
+      "rainfall_anomaly",
+      "data_quality_score",
+      "mobility_score",
+      "beds_proxy"
+    ],
+    "recommended_actions": [
+      "Continue routine monitoring; no additional action required.",
+      "Inspect drainage and water sources for contamination risk after heavy rainfall.",
+      "Investigate unusual rainfall pattern versus county baseline.",
+      "Follow up with reporting facilities \u2014 confidence in this score is reduced by data gaps.",
+      "Coordinate cross-border screening given elevated population movement."
+    ],
+    "explanation": "Kisumu is at normal/routine risk for cholera (17.8%), driven mainly by recent rainfall totals, rainfall running above normal for the area, and completeness of recent reporting. This estimate reflects current environmental and health-system conditions, not a confirmed outbreak.",
+    "reported_cases": 7,
+    "cases_source": "placeholder_synthetic"
+  },
+  {
+    "run_date": "2026-11-01",
+    "county": "Siaya",
+    "disease": "malaria",
+    "risk_score": 39.6,
+    "alert_level": "normal",
+    "rainfall_mm": 85.7,
+    "temperature_c": 22.833333333333336,
+    "ndvi": 0.5,
+    "wash_score": 0.6,
+    "mobility_score": 0.4,
+    "health_capacity_score": 0.5,
+    "data_quality_score": 0.7,
+    "top_drivers": [
+      "rainfall_anomaly",
+      "temperature_c_mean",
+      "rainfall_mm_total_14d",
+      "data_quality_score",
+      "health_capacity_score"
+    ],
+    "recommended_actions": [
+      "Continue routine monitoring; no additional action required.",
+      "Investigate unusual rainfall pattern versus county baseline.",
+      "Inspect drainage and water sources for contamination risk after heavy rainfall.",
+      "Follow up with reporting facilities \u2014 confidence in this score is reduced by data gaps.",
+      "Assess bed and staffing capacity; request reinforcement if strained."
+    ],
+    "explanation": "Siaya is at normal/routine risk for malaria (39.6%), driven mainly by rainfall running above normal for the area, average temperatures, and recent rainfall totals. This estimate reflects current environmental and health-system conditions, not a confirmed outbreak.",
+    "reported_cases": 41,
+    "cases_source": "placeholder_synthetic"
+  },
+  {
+    "run_date": "2026-11-01",
+    "county": "Siaya",
+    "disease": "cholera",
+    "risk_score": 24.6,
+    "alert_level": "normal",
+    "rainfall_mm": 85.7,
+    "temperature_c": 22.833333333333336,
+    "ndvi": 0.5,
+    "wash_score": 0.6,
+    "mobility_score": 0.4,
+    "health_capacity_score": 0.5,
+    "data_quality_score": 0.7,
+    "top_drivers": [
+      "rainfall_mm_total_14d",
+      "rainfall_anomaly",
+      "data_quality_score",
+      "mobility_score",
+      "beds_proxy"
+    ],
+    "recommended_actions": [
+      "Continue routine monitoring; no additional action required.",
+      "Inspect drainage and water sources for contamination risk after heavy rainfall.",
+      "Investigate unusual rainfall pattern versus county baseline.",
+      "Follow up with reporting facilities \u2014 confidence in this score is reduced by data gaps.",
+      "Coordinate cross-border screening given elevated population movement."
+    ],
+    "explanation": "Siaya is at normal/routine risk for cholera (24.6%), driven mainly by recent rainfall totals, rainfall running above normal for the area, and completeness of recent reporting. This estimate reflects current environmental and health-system conditions, not a confirmed outbreak.",
+    "reported_cases": 11,
+    "cases_source": "placeholder_synthetic"
+  },
+  {
+    "run_date": "2026-11-01",
+    "county": "Homa Bay",
+    "disease": "malaria",
+    "risk_score": 36.3,
+    "alert_level": "normal",
+    "rainfall_mm": 80.9,
+    "temperature_c": 23.86666666666667,
+    "ndvi": 0.5,
+    "wash_score": 0.6,
+    "mobility_score": 0.4,
+    "health_capacity_score": 0.5,
+    "data_quality_score": 0.7,
+    "top_drivers": [
+      "rainfall_anomaly",
+      "rainfall_mm_total_14d",
+      "temperature_c_mean",
+      "data_quality_score",
+      "health_capacity_score"
+    ],
+    "recommended_actions": [
+      "Continue routine monitoring; no additional action required.",
+      "Investigate unusual rainfall pattern versus county baseline.",
+      "Inspect drainage and water sources for contamination risk after heavy rainfall.",
+      "Follow up with reporting facilities \u2014 confidence in this score is reduced by data gaps.",
+      "Assess bed and staffing capacity; request reinforcement if strained."
+    ],
+    "explanation": "Homa Bay is at normal/routine risk for malaria (36.3%), driven mainly by rainfall running above normal for the area, recent rainfall totals, and average temperatures. This estimate reflects current environmental and health-system conditions, not a confirmed outbreak.",
+    "reported_cases": 37,
+    "cases_source": "placeholder_synthetic"
+  },
+  {
+    "run_date": "2026-11-01",
+    "county": "Homa Bay",
+    "disease": "cholera",
+    "risk_score": 24.6,
+    "alert_level": "normal",
+    "rainfall_mm": 80.9,
+    "temperature_c": 23.86666666666667,
+    "ndvi": 0.5,
+    "wash_score": 0.6,
+    "mobility_score": 0.4,
+    "health_capacity_score": 0.5,
+    "data_quality_score": 0.7,
+    "top_drivers": [
+      "rainfall_mm_total_14d",
+      "rainfall_anomaly",
+      "data_quality_score",
+      "mobility_score",
+      "beds_proxy"
+    ],
+    "recommended_actions": [
+      "Continue routine monitoring; no additional action required.",
+      "Inspect drainage and water sources for contamination risk after heavy rainfall.",
+      "Investigate unusual rainfall pattern versus county baseline.",
+      "Follow up with reporting facilities \u2014 confidence in this score is reduced by data gaps.",
+      "Coordinate cross-border screening given elevated population movement."
+    ],
+    "explanation": "Homa Bay is at normal/routine risk for cholera (24.6%), driven mainly by recent rainfall totals, rainfall running above normal for the area, and completeness of recent reporting. This estimate reflects current environmental and health-system conditions, not a confirmed outbreak.",
+    "reported_cases": 0,
+    "cases_source": "placeholder_synthetic"
+  },
+  {
+    "run_date": "2026-11-01",
+    "county": "Migori",
+    "disease": "malaria",
+    "risk_score": 32.8,
+    "alert_level": "normal",
+    "rainfall_mm": 72.39999999999999,
+    "temperature_c": 22.366666666666667,
+    "ndvi": 0.5,
+    "wash_score": 0.6,
+    "mobility_score": 0.4,
+    "health_capacity_score": 0.5,
+    "data_quality_score": 0.7,
+    "top_drivers": [
+      "rainfall_mm_total_14d",
+      "rainfall_anomaly",
+      "temperature_c_mean",
+      "data_quality_score",
+      "health_capacity_score"
+    ],
+    "recommended_actions": [
+      "Continue routine monitoring; no additional action required.",
+      "Inspect drainage and water sources for contamination risk after heavy rainfall.",
+      "Investigate unusual rainfall pattern versus county baseline.",
+      "Follow up with reporting facilities \u2014 confidence in this score is reduced by data gaps.",
+      "Assess bed and staffing capacity; request reinforcement if strained."
+    ],
+    "explanation": "Migori is at normal/routine risk for malaria (32.8%), driven mainly by recent rainfall totals, rainfall running above normal for the area, and average temperatures. This estimate reflects current environmental and health-system conditions, not a confirmed outbreak.",
+    "reported_cases": 16,
+    "cases_source": "placeholder_synthetic"
+  },
+  {
+    "run_date": "2026-11-01",
+    "county": "Migori",
+    "disease": "cholera",
+    "risk_score": 20.0,
+    "alert_level": "normal",
+    "rainfall_mm": 72.39999999999999,
+    "temperature_c": 22.366666666666667,
+    "ndvi": 0.5,
+    "wash_score": 0.6,
+    "mobility_score": 0.4,
+    "health_capacity_score": 0.5,
+    "data_quality_score": 0.7,
+    "top_drivers": [
+      "rainfall_mm_total_14d",
+      "rainfall_anomaly",
+      "data_quality_score",
+      "mobility_score",
+      "beds_proxy"
+    ],
+    "recommended_actions": [
+      "Continue routine monitoring; no additional action required.",
+      "Inspect drainage and water sources for contamination risk after heavy rainfall.",
+      "Investigate unusual rainfall pattern versus county baseline.",
+      "Follow up with reporting facilities \u2014 confidence in this score is reduced by data gaps.",
+      "Coordinate cross-border screening given elevated population movement."
+    ],
+    "explanation": "Migori is at normal/routine risk for cholera (20.0%), driven mainly by recent rainfall totals, rainfall running above normal for the area, and completeness of recent reporting. This estimate reflects current environmental and health-system conditions, not a confirmed outbreak.",
+    "reported_cases": 4,
+    "cases_source": "placeholder_synthetic"
+  },
+  {
+    "run_date": "2026-11-01",
+    "county": "Kisii",
+    "disease": "malaria",
+    "risk_score": 36.9,
+    "alert_level": "normal",
+    "rainfall_mm": 102.3,
+    "temperature_c": 20.12,
+    "ndvi": 0.5,
+    "wash_score": 0.6,
+    "mobility_score": 0.4,
+    "health_capacity_score": 0.5,
+    "data_quality_score": 0.7,
+    "top_drivers": [
+      "rainfall_anomaly",
+      "temperature_c_mean",
+      "data_quality_score",
+      "rainfall_mm_latest",
+      "rainfall_mm_total_14d"
+    ],
+    "recommended_actions": [
+      "Continue routine monitoring; no additional action required.",
+      "Investigate unusual rainfall pattern versus county baseline.",
+      "Follow up with reporting facilities \u2014 confidence in this score is reduced by data gaps.",
+      "Inspect drainage and water sources for contamination risk after heavy rainfall."
+    ],
+    "explanation": "Kisii is at normal/routine risk for malaria (36.9%), driven mainly by rainfall running above normal for the area, average temperatures, and completeness of recent reporting. This estimate reflects current environmental and health-system conditions, not a confirmed outbreak.",
+    "reported_cases": 28,
+    "cases_source": "placeholder_synthetic"
+  },
+  {
+    "run_date": "2026-11-01",
+    "county": "Kisii",
+    "disease": "cholera",
+    "risk_score": 44.4,
+    "alert_level": "elevated",
+    "rainfall_mm": 102.3,
+    "temperature_c": 20.12,
+    "ndvi": 0.5,
+    "wash_score": 0.6,
+    "mobility_score": 0.4,
+    "health_capacity_score": 0.5,
+    "data_quality_score": 0.7,
+    "top_drivers": [
+      "rainfall_anomaly",
+      "rainfall_mm_total_14d",
+      "data_quality_score",
+      "mobility_score",
+      "health_capacity_score"
+    ],
+    "recommended_actions": [
+      "Increase surveillance reporting frequency for this county.",
+      "Review supply stock levels against the elevated-risk threshold.",
+      "Investigate unusual rainfall pattern versus county baseline.",
+      "Inspect drainage and water sources for contamination risk after heavy rainfall.",
+      "Follow up with reporting facilities \u2014 confidence in this score is reduced by data gaps.",
+      "Coordinate cross-border screening given elevated population movement.",
+      "Assess bed and staffing capacity; request reinforcement if strained."
+    ],
+    "explanation": "Kisii shows elevated risk for cholera (44.4%), driven mainly by rainfall running above normal for the area, recent rainfall totals, and completeness of recent reporting. This estimate reflects current environmental and health-system conditions, not a confirmed outbreak.",
+    "reported_cases": 3,
+    "cases_source": "placeholder_synthetic"
+  },
+  {
+    "run_date": "2026-11-01",
+    "county": "Nyamira",
+    "disease": "malaria",
+    "risk_score": 29.8,
+    "alert_level": "normal",
+    "rainfall_mm": 79.1,
+    "temperature_c": 18.30666666666667,
+    "ndvi": 0.5,
+    "wash_score": 0.6,
+    "mobility_score": 0.4,
+    "health_capacity_score": 0.5,
+    "data_quality_score": 0.7,
+    "top_drivers": [
+      "rainfall_anomaly",
+      "temperature_c_mean",
+      "rainfall_mm_total_14d",
+      "data_quality_score",
+      "ndvi"
+    ],
+    "recommended_actions": [
+      "Continue routine monitoring; no additional action required.",
+      "Investigate unusual rainfall pattern versus county baseline.",
+      "Inspect drainage and water sources for contamination risk after heavy rainfall.",
+      "Follow up with reporting facilities \u2014 confidence in this score is reduced by data gaps."
+    ],
+    "explanation": "Nyamira is at normal/routine risk for malaria (29.8%), driven mainly by rainfall running above normal for the area, average temperatures, and recent rainfall totals. This estimate reflects current environmental and health-system conditions, not a confirmed outbreak.",
+    "reported_cases": 15,
+    "cases_source": "placeholder_synthetic"
+  },
+  {
+    "run_date": "2026-11-01",
+    "county": "Nyamira",
+    "disease": "cholera",
+    "risk_score": 19.2,
+    "alert_level": "normal",
+    "rainfall_mm": 79.1,
+    "temperature_c": 18.30666666666667,
+    "ndvi": 0.5,
+    "wash_score": 0.6,
+    "mobility_score": 0.4,
+    "health_capacity_score": 0.5,
+    "data_quality_score": 0.7,
+    "top_drivers": [
+      "rainfall_mm_total_14d",
+      "rainfall_anomaly",
+      "temperature_c_mean",
+      "data_quality_score",
+      "mobility_score"
+    ],
+    "recommended_actions": [
+      "Continue routine monitoring; no additional action required.",
+      "Inspect drainage and water sources for contamination risk after heavy rainfall.",
+      "Investigate unusual rainfall pattern versus county baseline.",
+      "Follow up with reporting facilities \u2014 confidence in this score is reduced by data gaps.",
+      "Coordinate cross-border screening given elevated population movement."
+    ],
+    "explanation": "Nyamira is at normal/routine risk for cholera (19.2%), driven mainly by recent rainfall totals, rainfall running above normal for the area, and average temperatures. This estimate reflects current environmental and health-system conditions, not a confirmed outbreak.",
+    "reported_cases": 11,
+    "cases_source": "placeholder_synthetic"
   }
 ]
